@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist",
+    "lib": [
+      "dom",
+      "es2019",
+      "es2020.promise",
+      "es2020.bigint",
+      "es2020.string"
+    ],
+    "strict": true,
+    "target": "ES6",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "types": [
+      "node"
+    ],
+    "declaration": true
+  },
+  "exclude": [
+    "node_modules",
+    ".git",
+    "dist"
+  ],
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ]
+}
