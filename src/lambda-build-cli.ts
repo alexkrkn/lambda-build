@@ -1,4 +1,4 @@
-import * as fsPromises from 'fs/promises';
+import { promises as fsPromises } from 'fs';
 import chalk from 'chalk';
 import { LambdaBuildCore } from './lambda-build-core';
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import yargs from 'yargs'
-import fsPromises from 'fs/promises';
+import { promises as fsPromises } from 'fs';
 import fs from 'fs';
 import { build } from 'esbuild';
 import { hideBin } from 'yargs/helpers'
