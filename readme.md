@@ -1,6 +1,6 @@
 # lambda-build ⚡️
 
-![Lambda Build](lambda-build.gif)
+![Lambda Build](assets/lambda-build.gif)
 
 - Bundle, archive and upload your lambda functions using [esbuild](https://esbuild.github.io/)
 
@@ -106,7 +106,7 @@ const res = await buildAndUpload({
 
 ## Screencast
 
-...
+[![Lambda Build](assets/lambda-build-screencast.png)](https://youtu.be/FmnFqjBk0to)
 
 ## More Lambda Screencasts
 
