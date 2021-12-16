@@ -81,7 +81,7 @@ export class LambdaBuildCore {
       entryPoints: [entry],
       bundle: true,
       write: false,
-      minify: true,
+      minify: false,
       target: 'node12',
       platform: 'node',
       absWorkingDir: process.cwd(),

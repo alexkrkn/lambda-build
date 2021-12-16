@@ -1,6 +1,6 @@
 {
   "name": "lambda-build",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "lambda-build uses esbuild to take in your nodejs lambda handler and return a zip file ready to be used by your lambda function",
   "main": "./dist/lib.js",
   "bin": "./dist/cli.js",
