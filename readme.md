@@ -1,7 +1,5 @@
 ![lambda action](assets/cover.png)
 
-<i><b>Bundle, archive and upload</b> your lambda functions, powered by <a href="https://esbuild.github.io/" href="_blank">esbuild</a></i>
-
 ## How it works
 
 - 🎯 Point it to a js/ts file containing your lambda handler(s)
