@@ -1,8 +1,6 @@
-# lambda-build ⚡️
+![lambda action](assets/cover.png)
 
 <i><b>Bundle, archive and upload</b> your lambda functions, powered by <a href="https://esbuild.github.io/" href="_blank">esbuild</a></i>
-
-![Lambda Build](assets/lambda-build.gif)
 
 ## How it works
 
@@ -107,7 +105,7 @@ const res = await buildAndUpload({
 ## Screencast
 
 <a href="https://youtu.be/FmnFqjBk0to" target="_blank">
-  <img height="300" src="assets/lambda-build-screencast.png" alt="lambda-build screencast"/>
+  <img height="50%" src="assets/lambda-build-screencast.png" alt="lambda-build screencast"/>
 </a>
 
 ## More Lambda Screencasts
@@ -127,5 +125,4 @@ const res = await buildAndUpload({
 
 ## Follow me for updates
 
-- [twitter](https://twitter.com/alexkrkn)
-- [newsletter](https://www.getrevue.co/profile/alexkrkn)
+- [youtube](https://www.youtube.com/bitesizeacademy?sub_confirmation=1)
