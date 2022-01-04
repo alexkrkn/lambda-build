@@ -105,7 +105,7 @@ const res = await buildAndUpload({
 ## Screencast
 
 <a href="https://youtu.be/FmnFqjBk0to" target="_blank">
-  <img height="50%" src="assets/lambda-build-screencast.png" alt="lambda-build screencast"/>
+  <img height="30%" src="assets/lambda-build-screencast.png" alt="lambda-build screencast"/>
 </a>
 
 ## More Lambda Screencasts
