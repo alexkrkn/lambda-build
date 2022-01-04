@@ -1,15 +1,21 @@
 ![lambda action](assets/cover.png)
 
+<i><b>Bundle, archive and upload</b> your lambda functions, powered by </i>
+
 ## How it works
 
-- 🎯 Point it to a js/ts file containing your lambda handler(s)
-- 📦 Get a zip file containing tour bundle
-- 🚀 Upload it to aws
+Point it to a js/ts file containing your lambda handler(s), `lambda-build` will bundle it using <a href="https://esbuild.github.io/">esbuild</a>, and create a zip file. It can also upload it to aws for you, all in a single command.
 
 ## Install
 
 ```bash
 npm i --save-dev lambda-build
+```
+
+or globally:
+
+```bash
+npm i --g lambda-build
 ```
 
 - see options:
