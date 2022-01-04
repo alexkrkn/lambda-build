@@ -2,7 +2,9 @@
 
 ## How it works
 
-Point it to a js/ts file containing your lambda handler(s), `lambda-build` will bundle it using <a href="https://esbuild.github.io/">esbuild</a>, and create a zip file. It can also upload it to aws for you, all in a single command.
+- Point it to a js/ts file containing your lambda handler(s)
+- `lambda-build` will bundle your code (including node_modules) using <a href="https://esbuild.github.io/">esbuild</a>, and create a zip file
+- It can also upload the zip file to aws for you, all in a single command.
 
 ## Install
 
@@ -10,7 +12,7 @@ Point it to a js/ts file containing your lambda handler(s), `lambda-build` will 
 npm i --save-dev lambda-build
 ```
 
-or globally:
+- or globally:
 
 ```bash
 npm i --g lambda-build
