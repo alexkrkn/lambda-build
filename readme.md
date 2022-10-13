@@ -40,16 +40,25 @@ npx lambda-build
 `npx lambda-build archive` bundles your code and creates a local `archive.zip` file that you can then upload to aws yourself.
 
 - using `-e`, set a custom entry file:
+
 ```bash
 npx lambda-build archive -e src/index.ts
 ```
 
+- using `-o`, set a custom output file:
+
+```bash
+npx lambda-build archive -o ../archives/archive.zip
+```
+
 - using `-x`, exclude some libraries from bundling (for example, if you already load them in a layer):
+
 ```bash
 npx lambda-build archive -e src/index.ts -x lodash dayjs
 ```
 
 - using `-m`, generate a `meta.json` file which you can then use to [analyze your bundle](https://bundle-buddy.com/esbuild):
+
 ```bash
 npx lambda-build archive -e src/index.ts -m
 ```
@@ -59,11 +68,13 @@ npx lambda-build archive -e src/index.ts -m
 `npx lambda-build upload` bundles your code and then uploads it directly to your AWS lambda functions (requires the [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) to be locally configured).
 
 - specify the lambda functions that you would like to deploy to:
+
 ```bash
 npx lambda-build upload my-lambda1 my-lambda2 -e src/index.ts
 ```
 
 - you can specify the region using the `-r` flag (otherwise it defaults to `us-east-1`):
+
 ```bash
 npx lambda-build upload my-lambda1 my-lambda2 -e src/index.ts -r us-east-2
 ```
@@ -81,10 +92,11 @@ const res = await build({
   metafile: true,
 });
 ```
+
 - returns a `res` object:
-  - `res.archive` - *Buffer* - contents of the zip archive
-  - `res.archiveSize` - *string* - the size of the archive
-  - `res.meta` - *string* - contents of the meta file
+  - `res.archive` - _Buffer_ - contents of the zip archive
+  - `res.archiveSize` - _string_ - the size of the archive
+  - `res.meta` - _string_ - contents of the meta file
 
 ### `buildAndUpload()`
 
@@ -101,10 +113,10 @@ const res = await buildAndUpload({
 ```
 
 - returns a `res` object:
-  - `res.archive` - *Buffer* - contents of the zip archive
-  - `res.archiveSize` - *string* - the size of the archive
-  - `res.meta` - *string* - contents of the meta file
-  - `updatedArns` - *string[]* - an array with the ARNs of the lambda functions that were successfully deployed
+  - `res.archive` - _Buffer_ - contents of the zip archive
+  - `res.archiveSize` - _string_ - the size of the archive
+  - `res.meta` - _string_ - contents of the meta file
+  - `updatedArns` - _string[]_ - an array with the ARNs of the lambda functions that were successfully deployed
 
 ## Screencast
 

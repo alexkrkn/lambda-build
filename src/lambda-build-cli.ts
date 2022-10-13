@@ -2,13 +2,13 @@ import { promises as fsPromises } from 'fs';
 import chalk from 'chalk';
 import { LambdaBuildCore } from './lambda-build-core';
 
-export const ZIP_FILE_NAME = 'archive.zip';
 export const META_FILE_NAME = 'meta.json';
 
 type LogWriter = { log: typeof console.log };
 
 interface LambdaBuildArgs {
   entry: string;
+  output: string;
   external: string[];
   metafile: boolean;
   region?: string;
@@ -16,13 +16,11 @@ interface LambdaBuildArgs {
 }
 
 export class LambdaBuildCli {
-
   constructor(
     private fsys: typeof fsPromises,
     private output: LogWriter,
-    private lambdaBuildCore: LambdaBuildCore,
-  ) {
-  }
+    private lambdaBuildCore: LambdaBuildCore
+  ) {}
 
   public commandArchive = async (options: LambdaBuildArgs): Promise<void> => {
     try {
@@ -33,10 +31,17 @@ export class LambdaBuildCli {
       this.output.log(chalk.bold(' ️⚡️ Bundling %s'), options.entry);
 
       if (options.external.length) {
-        this.output.log(chalk.dim('  → Excluding %s'), options.external.join(','));
+        this.output.log(
+          chalk.dim('  → Excluding %s'),
+          options.external.join(',')
+        );
       }
 
-      const res = await this.lambdaBuildCore.bundleAndArchive(options.entry, options.external, options.metafile);
+      const res = await this.lambdaBuildCore.bundleAndArchive(
+        options.entry,
+        options.external,
+        options.metafile
+      );
 
       if (res.meta && options.metafile) {
         await this.fsys.writeFile(META_FILE_NAME, res.meta);
@@ -44,24 +49,39 @@ export class LambdaBuildCli {
       }
 
       if (res.archive) {
-        await this.fsys.writeFile(ZIP_FILE_NAME, res.archive);
-        this.output.log(chalk.green.bold('  ✔ Created %s') + chalk.dim.green(' %s'), ZIP_FILE_NAME, res.archiveSize);
+        await this.fsys.writeFile(options.output, res.archive);
+        this.output.log(
+          chalk.green.bold('  ✔ Created %s') + chalk.dim.green(' %s'),
+          options.output,
+          res.archiveSize
+        );
       }
 
       this.output.log();
     } catch (err) {
       this.outputErrors(err);
     }
-  }
+  };
 
-  private publishAndLog = async (region: string, functionName: string, archive: Buffer): Promise<string | undefined> => {
+  private publishAndLog = async (
+    region: string,
+    functionName: string,
+    archive: Buffer
+  ): Promise<string | undefined> => {
     this.output.log(chalk.dim('  → Uploading %s'), functionName);
-    const arn = await this.lambdaBuildCore.publishLambda(region, functionName, archive);
+    const arn = await this.lambdaBuildCore.publishLambda(
+      region,
+      functionName,
+      archive
+    );
     if (arn) {
-      this.output.log(chalk.white('  ✔ Successfully uploaded %s'), functionName);
+      this.output.log(
+        chalk.white('  ✔ Successfully uploaded %s'),
+        functionName
+      );
     }
     return arn;
-  }
+  };
 
   public commandUpload = async (options: LambdaBuildArgs) => {
     try {
@@ -69,14 +89,27 @@ export class LambdaBuildCli {
       // console.log('archive');
       // console.log({ options });
 
-      this.output.log(chalk.bold(' ⚡️ Bundling & Uploading %s'), options.entry);
+      this.output.log(
+        chalk.bold(' ⚡️ Bundling & Uploading %s'),
+        options.entry
+      );
 
       if (options.external.length) {
-        this.output.log(chalk.dim('  → Excluding %s'), options.external.join(','));
+        this.output.log(
+          chalk.dim('  → Excluding %s'),
+          options.external.join(',')
+        );
       }
 
-      const res = await this.lambdaBuildCore.bundleAndArchive(options.entry, options.external, options.metafile);
-      this.output.log(chalk.green.dim('  → Bundle archived %s'), res.archiveSize);
+      const res = await this.lambdaBuildCore.bundleAndArchive(
+        options.entry,
+        options.external,
+        options.metafile
+      );
+      this.output.log(
+        chalk.green.dim('  → Bundle archived %s'),
+        res.archiveSize
+      );
 
       if (res.meta) {
         await this.fsys.writeFile(META_FILE_NAME, res.meta);
@@ -90,15 +123,18 @@ export class LambdaBuildCli {
           all.push(this.publishAndLog(options.region, lambda, res.archive));
         }
         const arns = await Promise.all(all);
-        const uploadedArns = arns.filter(arn => Boolean(arn));
-        this.output.log(chalk.green.bold('  ✔ Successfully uploaded %s function(s)'), uploadedArns.length);
+        const uploadedArns = arns.filter((arn) => Boolean(arn));
+        this.output.log(
+          chalk.green.bold('  ✔ Successfully uploaded %s function(s)'),
+          uploadedArns.length
+        );
       }
 
       this.output.log();
     } catch (err: unknown) {
       this.outputErrors(err);
     }
-  }
+  };
 
   public outputErrors = (err: unknown) => {
     this.output.log();
@@ -109,6 +145,5 @@ export class LambdaBuildCli {
       this.output.log(err);
     }
     this.output.log();
-  }
-
+  };
 }
