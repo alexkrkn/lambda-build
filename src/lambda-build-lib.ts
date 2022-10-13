@@ -2,8 +2,8 @@ import { LambdaBuildCore, argsDefatuls } from './lambda-build-core';
 
 export interface BuildArchiveArgs {
   entry?: string;
-  external?: string[],
-  metafile?: boolean,
+  external?: string[];
+  metafile?: boolean;
 }
 
 export interface BuildRes {
@@ -28,21 +28,23 @@ export interface BuildAndUploadRes {
 }
 
 export class LambdaBuildLib {
-
-  constructor(
-    private lambdaBuildCore: LambdaBuildCore,
-  ) {
-  }
+  constructor(private lambdaBuildCore: LambdaBuildCore) {}
 
   public build = async (args?: BuildArchiveArgs): Promise<BuildRes> => {
     const entry = args?.entry ?? argsDefatuls.entry;
     const external = args?.external ?? argsDefatuls.external;
     const metafile = args?.metafile ?? argsDefatuls.metafile;
-    const res = await this.lambdaBuildCore.bundleAndArchive(entry, external, metafile);
+    const res = await this.lambdaBuildCore.bundleAndArchive(
+      entry,
+      external,
+      metafile
+    );
     return res;
   };
 
-  public buildAndUpload = async (args: BuildAndUploadArgs): Promise<BuildAndUploadRes> => {
+  public buildAndUpload = async (
+    args: BuildAndUploadArgs
+  ): Promise<BuildAndUploadRes> => {
     const entry = args.entry ?? argsDefatuls.entry;
     const external = args.external ?? argsDefatuls.external;
     const metafile = args.metafile ?? argsDefatuls.metafile;
@@ -56,10 +58,12 @@ export class LambdaBuildLib {
     if (buildRes.archive && region) {
       const all = [];
       for (const lambda of lambdas) {
-        all.push(this.lambdaBuildCore.publishLambda(region, lambda, buildRes.archive));
+        all.push(
+          this.lambdaBuildCore.publishLambda(region, lambda, buildRes.archive)
+        );
       }
       const arns = await Promise.all(all);
-      updatedArns = arns.filter(arn => Boolean(arn)) as string[];
+      updatedArns = arns.filter((arn) => Boolean(arn)) as string[];
     }
     return {
       archive: buildRes.archive,
@@ -68,5 +72,4 @@ export class LambdaBuildLib {
       updatedArns,
     };
   };
-
 }
